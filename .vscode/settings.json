@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "string": "cpp",
+        "vector": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "xstring": "cpp",
+        "set": "cpp",
+        "algorithm": "cpp",
+        "unordered_map": "cpp",
+        "cstdlib": "cpp",
+        "ostream": "cpp",
+        "map": "cpp"
+    }
+}

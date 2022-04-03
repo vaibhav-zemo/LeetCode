@@ -3,99 +3,51 @@
 #include <algorithm>
 using namespace std;
 
-bool isRight(vector<vector<char>> board, int **check, char ch, int i, int j)
+bool isValid(int i, int j, vector<vector<char>> &board)
 {
-    int row = board.size();
-    int col = board[0].size();
-    if (i >= row || j >= col || i < 0 || j < 0 || check[i][j] || board[i][j] != ch)
-    {
+    if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size())
         return false;
-    }
     return true;
 }
 
-bool isPresent(vector<vector<char>> board, int **check, string word, int i, int j)
+bool solve(int i, int j, int length, vector<vector<char>> &board, string &word)
 {
-    int row = board.size();
-    int col = board[0].size();
-    if (word.size() == 0)
-    {
+    if (length == word.size())
         return true;
-    }
-    
-    if (isRight(board, check, word[0], i + 1, j))
-    {
-        check[i+1][j] = 1;
-        if (isPresent(board, check, word.substr(1), i + 1, j))
-        {
-            return true;
-        }
-        check[i+1][j] = 0;
-    }
-    else if (isRight(board, check, word[0], i - 1, j))
-    {
-        check[i-1][j] = 1;
-        if (isPresent(board, check, word.substr(1), i - 1, j))
-        {
-            return true;
-        }
-        check[i-1][j] = 0;
-    }
-    else if (isRight(board, check, word[0], i, j + 1))
-    {
-        check[i][j+1] = 1;
-        if (isPresent(board, check, word.substr(1), i, j + 1))
-        {
-            return true;
-        }
-        check[i][j+1] = 0;
-    }
-    else if (isRight(board, check, word[0], i, j - 1))
-    {
+    if (!isValid(i, j, board) || board[i][j] == '$' || board[i][j] != word[length])
+        return false;
 
-        check[i][j-1] = 1;
-        if (isPresent(board, check, word.substr(1), i, j - 1))
-        {
-            return true;
-        }
-        check[i][j-1] = 0;
-    }
-    return false;
+    char ch = board[i][j];
+    board[i][j] = '$';
+
+    bool res = false;
+    if (!res)
+        res = solve(i + 1, j, length + 1, board, word);
+    if (!res)
+        res = solve(i - 1, j, length + 1, board, word);
+    if (!res)
+        res = solve(i, j + 1, length + 1, board, word);
+    if (!res)
+        res = solve(i, j - 1, length + 1, board, word);
+
+    board[i][j] = ch;
+
+    return res;
 }
 
 bool exist(vector<vector<char>> &board, string word)
 {
-    int row = board.size();
-    int col = board[0].size();
-    int ch = word[0];
-    int m, n;
-
-    int **check = new int *[row];
-    for (int d = 0; d < row; d++)
+    int m = board.size(), n = board[0].size();
+    for (int i = 0; i < m; i++)
     {
-        check[d] = new int[col];
-        for (int n = 0; n < col; n++)
+        for (int j = 0; j < n; j++)
         {
-            check[d][n] = 0;
+            if (board[i][j] != word[0])
+                continue;
+            if (solve(i, j, 0, board, word))
+                return true;
         }
     }
-
-    for (int i = 0; i < row; i++)
-    {
-        for (int j = 0; j < col; j++)
-        {
-            if (board[i][j] == ch)
-            {
-                check[i][j] = 1;
-                if (isPresent(board, check, word.substr(1), i, j))
-                {
-                    return true;
-                }
-                check[i][j] = 0;
-            }
-        }
-    }
-
     return false;
 }
 
