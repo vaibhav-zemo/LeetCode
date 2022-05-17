@@ -2,43 +2,59 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <unordered_map>
 using namespace std;
 #define ll long long
+
+bool check(ll a, ll b)
+{
+    while (a && b)
+    {
+        if ((1 & a) == (1 & b))
+        {
+            return true;
+        }
+        a >>= 1;
+        b >>= 1;
+    }
+    return false;
+}
 
 int main()
 {
 
-    int t;
+    ll t;
     cin >> t;
 
     while (t--)
     {
-        string st;
-        cin >> st;
+        ll n;
+        cin >> n;
 
-        unordered_map<char, int> map;
-        for (char ch : st)
+        ll *arr = new ll[n];
+        for (ll i = 0; i < n; i++)
         {
-            map[st[ch]]++;
+            cin >> arr[i];
         }
 
-        int cnt = 0, cnt2 = 0;
-
-        for (int i = 0; i < st.length(); i++)
+        ll ans = 0;
+        ll cnt = 0;
+        for (ll i = 0; i < n - 1; i++)
         {
-            if (st[i] == 'K')
+            if (arr[i] == arr[i + 1])
             {
-                cnt2 = 0;
-                while (i < (st.length() - 1) && st[i] == st[i + 1])
-                {
-                    cnt++;
-                    i++;
-                }
-                cnt = 0;
+                cnt++;
+                i++;
+                continue;
             }
-            cnt2++;
+
+            if (!check(arr[i], arr[i + 1]))
+            {
+                ans++;
+                i++;
+            }
         }
+
+        cout << n - ans - 2 * cnt << endl;
     }
     return 0;
 }
