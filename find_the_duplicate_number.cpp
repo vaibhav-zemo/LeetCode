@@ -4,21 +4,22 @@ using namespace std;
 
 int findDuplicate(vector<int> &nums)
 {
-    int a[nums.size()];
-    int i;
+    int slow = nums[0];
+    int fast = nums[0];
 
-    for (i = 0; i < nums.size(); i++)
+    do
     {
-        a[i] = 0;
-    }
-    for (i = 0; i < nums.size(); i++)
-    {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    } while (slow != fast);
 
-        if (a[nums[i]] != 0)
-            return nums[i];
-        a[nums[i]] = 1;
+    fast = nums[0];
+    while (slow != fast)
+    {
+        slow = nums[slow];
+        fast = nums[fast];
     }
-    return nums[i];
+    return slow;
 }
 
 int main()
