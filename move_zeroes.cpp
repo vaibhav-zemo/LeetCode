@@ -6,20 +6,19 @@ using namespace std;
 
 void moveZeroes(vector<int> &nums)
 {
-    int cnt = 0;
-    for (int i = 0; i < nums.size(); i++)
+    int j = 0, n = nums.size();
+    for (int i = 0; i < n; i++)
     {
-        if (nums[i] == 0)
+        if (nums[i] != 0)
         {
-            cnt++;
-            nums.erase(nums.begin() + i);
-            i--;
+            nums[j] = nums[i];
+            j++;
         }
     }
 
-    while (cnt--)
+    for (int i = j; i < n; i++)
     {
-        nums.push_back(0);
+        nums[i] = 0;
     }
 }
 

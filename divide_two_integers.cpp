@@ -3,41 +3,38 @@
 #include <algorithm>
 using namespace std;
 
-int divide(int dividend, int divisor)
+class Solution
 {
-    int ans = 0;
-
-    if ((dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0))
+public:
+    int divide(int dividend, int divisor)
     {
-        dividend = dividend > 0 ? dividend : -dividend;
-        divisor = divisor > 0 ? divisor : -divisor;
-        while (dividend > 0)
-        {
-            dividend -= divisor;
-            ans++;
-            if (ans > 2e31 - 1)
-            {
-                return 2e31 - 1;
-            }
-        }
-    }
-    else
-    {
-        dividend = dividend > 0 ? dividend : -dividend;
-        divisor = divisor > 0 ? divisor : -divisor;
-        while (dividend > 0)
-        {
-            dividend -= divisor;
-            ans++;
-            if (ans > 2e31)
-            {
-                return -2e31;
-            }
-        }
-    }
 
-    return ans;
-}
+        if (dividend == INT_MIN && divisor == -1)
+            return INT_MAX;
+        if (dividend == INT_MIN && divisor == 1)
+            return INT_MIN;
+
+        long int dd = abs(dividend), dv = abs(divisor);
+
+        int res = 0;
+        while (dv <= dd)
+        {
+            long int mul = dv, tmp = 1;
+            while (mul <= dd - mul)
+            {
+                mul += mul;
+                tmp += tmp;
+            }
+            res += tmp;
+            dd -= mul;
+        }
+
+        if ((dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0))
+            return -res;
+
+        return res;
+    }
+};
 
 int main()
 {

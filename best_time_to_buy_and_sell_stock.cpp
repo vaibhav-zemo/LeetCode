@@ -5,21 +5,16 @@ using namespace std;
 
 int maxProfit(vector<int> &prices)
 {
-    int minprice = 10001;
-    int maxprofit = -1;
-    for (int i = 0; i < prices.size(); i++)
+    int ans = 0, prev = prices[0];
+    for (int i = 0; i < prices.size() - 1; i++)
     {
-        if (minprice < prices[i])
+        prev = min(prev, prices[i]);
+        if (prev < prices[i])
         {
-            minprice = prices[i];
-        }
-        else
-        {
-            maxprofit = max(prices[i] - minprice, maxprofit);
+            ans = max(prices[i] - prev, ans);
         }
     }
-
-    return maxprofit;
+    return ans;
 }
 
 int main()
