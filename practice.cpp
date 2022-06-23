@@ -1,18 +1,35 @@
 #include <iostream>
 #include <vector>
-#include <string>
+#include <queue>
+#include <algorithm>
 using namespace std;
+
+class Solution
+{
+public:
+    int findKthLargest(vector<int> &nums, int k)
+    {
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (pq.size() > k)
+            {
+                if (pq.top() < nums[i])
+                {
+                    pq.pop();
+                    pq.push(nums[i]);
+                }
+            }
+            else
+            {
+                pq.push(nums[i]);
+            }
+        }
+        return pq.top();
+    }
+};
 
 int main()
 {
-    string st = "Vaibhav";
-    int i = 0, j = st.size() - 1;
-    cout<<st.substr(0,0)<<endl;
-    while (i <= j)
-    {
-        cout << st.substr(i, j) << endl;
-        j--;
-    }
-
     return 0;
 }
