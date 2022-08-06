@@ -1,1 +1,1 @@
-{"name":"Local: pp2","url":"d:\\Programming\\cp\\leetcode\\pp2.cpp","tests":[{"id":1651507814707,"input":"3\naaaa\na\naa\nabc\na\nb","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Programming\\cp\\leetcode\\pp2.cpp","group":"local","local":true}
+{"name":"Local: pp2","url":"d:\\Programming\\cp\\leetcode\\pp2.cpp","tests":[{"id":1659247772572,"input":"3 \n1 1 1","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Programming\\cp\\leetcode\\pp2.cpp","group":"local","local":true}

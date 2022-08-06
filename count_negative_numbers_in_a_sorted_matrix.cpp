@@ -3,26 +3,33 @@
 #include <algorithm>
 using namespace std;
 
-int countNegatives(vector<vector<int>> &grid)
+class Solution
 {
-    int ans = 0;
-    for (int i = 0; i < grid.size(); i++)
+public:
+    int countNegatives(vector<vector<int>> &grid)
     {
-        if(grid[i][0]<0){
-            ans += grid[i].size();
-            break;
-        }
-        for (int j = grid[i].size() - 1; j >= 0; j--)
+        int n = grid.size(), m = grid[0].size(), ans = 0;
+        for (int i = 0; i < n; i++)
         {
-            if (grid[i][j] > 0)
+            int st = 0, end = m - 1;
+            vector<int> arr = grid[i];
+            while (st <= end)
             {
-                break;
+                int mid = st + (end - st) / 2;
+                if (arr[mid] >= 0)
+                {
+                    st = mid - 1;
+                }
+                else
+                {
+                    end = mid + 1;
+                }
             }
-            ans++;
+            ans += (m - st);
         }
+        return ans;
     }
-    return ans;
-}
+};
 
 int main()
 {
